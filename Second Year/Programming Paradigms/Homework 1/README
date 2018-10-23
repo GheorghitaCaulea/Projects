@@ -1,0 +1,12 @@
+Student: CAULEA GHEORGHITA
+Grupa:	 324CB
+Implementare: GREEDY
+
+	In inceputul implementarii am definit interfata 'Visitable' si 'Visitor', interfete folosite la constructia DESIGN PATTERN-UL VISITOR. Am creat clasa 'Nod' ce implementeaza interfata 'Visitable' si mai apoi clasele 'AddNod', 'MultiplyNod', 'SmallerNod', EqualNod', 'SymbolNod', 'ValueNod', 'AssignedNod', 'AssertNod', 'ForNod', 'IfNod', 'ReturnNod', 'SemicolonNod', 'SymbolNod', 'ValueNod', clase ce extind clasa Nod. Am prelucrat stringul primit ca parametru si am obtinut din acesta un vector de stringuri prin eliminarea tuturor '][' si a whitespace-urilor. Am parcurs acest vector de stringuri obtinut, de la dreapta la stanga si pentru fiecare string din vector construiam un nod folosind o stiva ajutatoare, toate acestea cu scopul contruirii unui arbore care sa ma ajute la evaluarea programului. 
+
+	Spre exemplu avem urmatoarea situatie: daca intalnesc o valoare numerica, construiesc un nod de tip 'ValueNod' si il pun pe stiva. Daca in continuare intalnesc un simbol, contruiesc un nod de tip 'SymbolNod' si il pun pe stiva. Daca intalnesc dupa un 'add' (+), voi scoate de pe stiva ultimile doua noduri puse(cu certitudine vor fi cele care trebuie) si voi contrui un nod de tip 'AddNod' cu parametrii cele doua noduri scoase de pe stiva. La sfarsitul contruirii arborelui, pe stiva voi avea garantat un singur nod, nod ce reprezinta root-ul. Prin aceasta tehnica de constructie folosesc si DESIGN PATTERN-UL DECORATOR, deoarece la fiecare pas decorez fiecare nod cu fiii lui.
+
+	Pentru evaluarea programului am costruit metode 'visit' pentru fiecare tip de nod. Evaluarea pleaca din radacina si apeleaza metoda 'accept' pe nodul root. Apelul 'accept' pe nodul root implica apelul 'accept' pe nodurile copil ale nodului root pana se ajunge la noduri de tip 'frunza'('SymbolNod' sau 'ValueNod'). Tot in cadrul metodelor 'visit', in situatia in care sunt intr-un nod de tip 'AssignNod' are loc initializarea unui variabile sau updatarea valorii. In cazul in care intalnesc un 'assert' memorez intr-o lista valoarea de adevar a assert-ului respectiv. In cazul in care intalnesc un 'return', retin valoarea ce trebuie intoarsa.
+
+	La finalul implementarii, dupa realizarea evaluarii, verific in ordinea prioritatii erorile ce puteau aparea in ordinea prioritatii si scriu in fisier eroarea. In cazul in care nu a aparut nicio eroare scriu in fisier valuarea evaluarii programului.
+	

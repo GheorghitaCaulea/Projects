@@ -1,0 +1,6 @@
+CAULEA Gheorghita, 324CB
+	
+
+	In inceputul implementarii am costruit doua clasa ajutatoare Node si Graph. Clasa Node are ca variabile membru un nume, numarul de vecini si o lista de vecini. In ceea ce priveste metodele, am costruit metode pentru verificarea existentei, adaugarea si stergerea unui vecin.
+	Clasa Graph, are ca variabile membru o lista de noduri(nodurile ce fac parte din graf) dublata de o alta lista care ma ajuta in implementare. Ca metode, am costruit metode de adaugarea unei muchii in graf si de sortare a nodurilor dupa numarul de vecini.
+	In ceea ce priveste transformarea pe care am gandit-o, ea se traduce astfel:dupa ce construiesc graful prin citerea datelor de input, sortez lista de noduri a grafului, descrescator dupa numarul de vecini. Extrag primul nod din lista(il sterg si din graf) si construisc o clauza cu toate nodurile lui vecine(privesc aceste noduri ca pe literali ce alcatuiesc clauza). Dupa fiecare extragere sortez lista. Voi executa k extrageri.

@@ -1,0 +1,37 @@
+Student: CAULEA Gheorghita
+Grupa: 	 334CB
+
+
+	In inceputul implementarii am creat in fisierul header "main.h" o structura de tip lista dublu inlantuita necirculara a carei informatii este de tip "struct coord" si va reprezenta coordonatele fiecarei celule din sarpe. Am adaugat structurii snake doua campuri:body si last, ambele de tip lista dublu inlantuita necirculara care vor reprezenta corpul(toate celule care fac parte din sarpe) si ultima celula(coada). Am mai adugat structurii snake si doua campuri("line_old_tail", "col_old_tail") care reprezinta indicele de linie si coloana pentru ultima celula din sarpe(coada).	
+	In fisierul "parallel_snake.c" am creat urmatoarele functii care indeplinesc urmatoarele roluri:
+
+- functia "ConsBodySeg" construieste o lista dublu inlantuita necirculara primind ca paramentru informatia sub forma de coordonate linie si coloana si care in contextul temei reprezinta o celula a unui sarpe.
+
+-functia "ConsBody" concateneaza doua liste dublu inlantuite necirculare care in contextul temei sunt body-ul(corpul sarpelui) si un segment(ultima celula descoperita).
+
+-functia "get_index" returneaza indecsi valizi din matricea care reprezinta harta de joc. In situatia in care un index prin anumite operatii depaseste limita maxima sau minima, data de numarul de linii sau numarul de coloane, functia va returna un index corespunzator care face parte din limitele matricii.
+
+-functia "findSnake" construieste o lista dublu inlantuita necirculara care reprezinta corpul unui sarpe. Fiecare element din acea lista va reprezinta o celula si informatia acelui element reprezinta coordonatele celului pe harta. In alta ordine de idei, cautarea si construirea unui sarpe incepe din punctul dat de coordonatele capului(construiesc o lista cu un singur element cu coordonatele capului). In prima faza voi cauta vecini in toate cele 4 directii. Dupa gasirea primului vecin(concatenez la lista deja creata, lista cu un singur element ce reprezinta vecinul), voi executa repetitiv pana in momentul in care am ajuns la sfarsitul sarpelui urmatoarele operatii: mut coordonatele actuale pe vecinul gasit si voi cauta vecin doar in 3 directii, nemaicautand si in directia din care vin. Retin ca ultima celula("last") fiecare vecin gasit pana la incheierea cautarii.
+
+-functia "moveTail" muta informatia din lista ce reprezinta corpul sarpelui simuland in acest fel mutarea cozii sarpelui. Aceasta functie va fi mai tarziu apelata in paralel, neexistand probleme de sincronizare. In cadrul functiei, inainte de orice mutare se retin coordonatele vechii cozi iar mai apoi se pleaca cu un pointer de la ultima celula "last" si informatia din fiecare celula va lua valuare informatiei din celula precedenta pana se ajunge pe prima celula. De actualizarea informatiei din prima celula se va ocupa mai apoi functia "moveHead".
+
+-functia "moveHead" muta capul sarpelui daca mutarea este posibila(mutarea capului va presupune actualizarea informatiei din primul element al listei body). Mutarea capului in directia data este posibila daca celula din harta de joc in care vreau sa mut este 0, sau daca celula cu aceleasi coordonate din aux_world2 este 1(asta ar insemna ca celula in care vreau sa mut este coada unui sarpe, insa cum harta nu se actualizeaza decat la sfarsit, acea pozitie nu va avea 0 si a trebuit sa folosesc o harta auxiliala aux_world2 in care retin doar coada fiecarui sarpe) si daca celula cu aceleasi coordonate din aux_world este != 1(asta ar inseamna ca un alt sarpe nu si-a mutat deja acolo capul. Din nou pentru ca harta se actualizeaza la sfarsit pentru a sti unde se muta fiecare cap de sarpe am folosit o matrice auxiliara aux_world care tine 1 pe pozitia capetelor tuturor serpilor). Daca mutarea a fost posibila, actualizez prima celula din body si actulizez,matricea auxiliara aux_world si intorc valoarea 0. Daca mutarea nu a fost posibila se va intorce valoare 1 ce reprezinta o situatie de coliziune.
+
+-functia "update" are rolul de a actualiza harta de joc. Aceasta functia va fi apelata paralel deoarece nu exista probleme de sincronizare. In prima se pune encoding-ul fiecarui sarpe pe pozitia capului(pozitie acum actualizata dupa apelul moveHead). Se pune apoi 0 pe pozitia vechii cozi asta in cazul in care matricea auxiliara aux_world nu anunta ca in timpul apelului functiei moveHead acolo a ajuns capul unui alt sarpe. Se actualizeaza coordoanatele capului sarpelui si matricea auxiliara aux_world2.
+
+-in "run_simulation" in prima faza imi construiesc matricile auxiliare, completandu-le cu 0-uri. Pentru fiecare sarpe voi apela functia findSnake si voi completa matricile auxiliare cu informatiile obtinute. Petru fiecare tura paralelizez mutarea cozii fiecarui sarpe(apelul functiei "moveTail"), execut mutarea capului fiecarui sarpe(apelul functiei "moveHead") si paralelizez update-ul hartii de joc(apelul functiei "update"). Update-ul hartii are loc atata vreme cat functia nu este depistata situatie de coliziune.
+
+	Pentru TESTAREA temei am copiat resursele necesare pe FEP folosind comanda 'scp numele_fiecarui_fisier_incarcat gheorghita.caulea@fep.grid.pub.ro:.". Am scris un script  care ruleaza tema pe un numar de THREAD-uri egal cu 1,2,4,6,8.  Pentru a rula pe cluster am folosit comanda 'qsub -q ibm-nehalem.q nume_script'(pentru a rula pe coada nehalem). Am realizat mai multe teste pe fisierul de input denumit 'big_input' si pentru 20000 de ture. Timpii de rulare obtinuti pentru fisierul 'big_input' si pentru 20000 de ture pe coada nehalem la 2 executii diferite sunt urmatorii:
+Prima executie - 1 THREAD: 48.06
+			   - 2 THREAD-uri 31.581
+			   - 4 THREAD-uri 19.713 	 
+			   - 6 THREAD-uri 14.403
+			   - 8 THREAD-uri 13.322
+A doua executie - 1 THREAD: 49.404
+			    - 2 THREAD-uri 30.5
+			    - 4 THREAD-uri 19.031 	 
+			    - 6 THREAD-uri 14.61
+			    - 8 THREAD-uri 12.401
+In urma testarii am observat o buna scalabilitate a programului meu.
+
+

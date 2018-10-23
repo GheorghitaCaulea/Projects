@@ -1,0 +1,21 @@
+STUDENT: CAULEA Gheorghita
+GRUPA:   324CB
+
+Mentiuni: Am implementat doar functia de evaluare.
+
+	In inceputul implementarii am definit tipul 'Dictionary' in care retin perechi de forma (String, Value x). 
+	Am definit functia 'search' care 'cauta' o pereche in dictionar dupa un string dat, in caz de esec returnand eroarea semantica "Uninitialized variable".
+	Am definit functia 'evalAdd' care ia doua expresii si un dictionar si realizeaza adunarea acestora. In cazul in care evaluarea uneia din expresii intoarce o eroare(String) voi intoarce acea eroare.
+	Am definit functia 'evalSub' care ia doua expresii si un dictionar si realizeaza scaderea acestora. In cazul in care evaluarea uneia din expresii intoarce o eroare(String) voi intoarce acea eroare.
+	Am definit functia 'evalMult' care ia doua expresii si un dictionar si realizeaza inmultirea acestora. In cazul in care evaluarea uneia din expresii intoarce o eroare(String) voi intoarce acea eroare.
+	Am definit functia 'evalEqual' care ia doua expresii si realizeaza compararea egalitatii acestora. In cazul in care evaluarea uneia din expresii intoarce o eroare(String) voi intoarce acea eroare.
+	Am definit functia 'evalSmaller' care ia doua expresii si un dictionar si realizeaza compararea acestora in sensul in care se verifica daca valoarea primeia este mai mica decat valoarea celei de-a doua. In cazul in care evaluarea uneia din expresii intoarce o eroare(String) voi intoarce acea eroare.
+	Am definit functia 'evalExpr' care ia o expresie si un dictionar si intoarce o eroare sau valoarea evaluarii expresiei respective. In cadrul evaluarii expresiei a intervenit si evaluarea unei expresii de tip 'Symbol' pentru care fac o cautare in dictionare folosind functia 'search' si intorc valoarea Symbolului sau eroare daca functia 'search' intoarce acest lucru.
+	Am definit functia 'evalAsgn' care ia un 'Asgn' si un 'Dictionary' si intoarce un 'Either String (Dictionary a)'. Aceasta functie apeleaza evaluarea expresiei primite de 'Asgn' si in cazul in care nu intoarce eroare, adauga in dictionar noua pereche.
+	Am definit functia 'evalAssert' care ia o 'Expr', un 'Dictionary' si intoarce 'Either String Int'. Aceasta functie evalueaza expresia primita si in cazul in care aceasta nu intoarce o eroare, testeaza daca este indeplinita conditia de 'assert'. Se intoarce '1' daca este indeplinita si eroare "Assert failed" in caz contrar.
+	Am definit functia 'evalReturn' care ia o 'Expr' si un 'Dictionary' si intoarce valoarea evaluata a lui 'Expr' din 'Dictionary'.
+	Am definit functia 'evalIf' care ia o 'Expr', doua 'Prog' si un dictionar. Aceasta functie simuleaza functionalitatea unei structuri 'if' din orice limbaj. In cazul in care evaluarea expresiei intoarce eroarea si functia 'evalIf' va intoarce eroare. In caz contrar se verifica valoarea evaluata a expresiei si se decide astfel pe ce ramura se va evalua 'if'. Voi evalua programul corespunzator ramurii pe care se merge.
+	Am definit funtia 'evalFor' care evalueaza un 'For'. Functia verifica daca primul asgn nu arunca eroare si in caz pozitiv merge mai departe la evaluarea expresiei cu noul dictionar creat de primul asgn. Daca nici  expresia nu arunca eroare, in cazul in care valuarea de adevar a acesteia este 'true' se va apela recursiv evaluarea for-ului cu parametrii : cel de-al doilea asgn, exprresia, al doilea asgn si dictionarul nou creat. In toate celelalte cazuri se vor intoare erori, valori de return sau dictionare in functie de evaluarea programului si a expresiei. 
+	Am definit functia 'evalProg' in care se realizeaza o evaluare generala a unui 'Prog' si in care apelez functiile mai sus definite. Aceasta functie va intoarce rezultate in functie de ce anume intorc evaluarile de program particulare.
+	Functia 'evalAdt' apeleaza functia 'evalProg' cu un dictionar gol.
+

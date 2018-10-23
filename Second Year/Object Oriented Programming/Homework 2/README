@@ -1,0 +1,61 @@
+CAULEA Gheorghita 324CB
+	
+	In inceputul temei a fost nevoie sa gandesc o structura a felului in care se vor subordona sau nu clasele ce vor duce la rezolvarea temei. Structura pe care am ales-o poate fi ilustrata ca mai jos:
+
+									     Nod					  		-Graful propri-zis
+
+							  /           |           \
+
+						NodA             NodB             NodC			-Tipurile de noduri
+
+					/    |    \     /     |    \       /    |    \
+					
+				NodA1 NodA2 NodA3 NodB1 NodB2 NodB3 NodC1 NodC2 NodC3	-Iteratiile unui tip
+
+	Fiecare 'copil' din 'arborele' ilustrat mai sus isi extinde in structura temei 'parintele'. Fiecare iteratie, a fiecarui tip a fost implementata diferit. Prima iteratie a unui tip a fost implementata folosind pentru a memora vecinii o structura de tip LIST. A doua iteratie a fost implementata folosind pentru a memora vecinii o structura de tip VECTOR. Ultima iteratie a fisecarui tip foloseste SET. Cele trei structuri:LIST, VECTOR, SET au fost implentate de mine.
+	LIST a fost implentata facand wrap peste LinkedList. Metodele din clasa LIST sunt minimale pentru rezolvarea temei.
+	VECTOR a fost implementata facand wrap peste ArrayList. Metodele din clasa VECTOR sunt minimale pentru rezolvarea temei. 
+	SET a fost implementata facand wrap peste HashSet. Metodele din clasa Set sunt minimale pentru rezolvarea temei.
+	Fiecare iteratie are ca atribute: numele, folosit ca identificator unic, id-ul si starea(vizitat) care faciliteaza serializarea.
+	Pentru fiecare operatie pe graf, verific instanta unui nod si apelez metodele din clasa respectiva.
+	Pentru operatia de serializare am facut o parcurgere in latime a grafului. Am folosit o lista in care introduceam toti vecinii nodurilor nevizitate. Structura afisarii pe care am ales-o o voi ilustra printr-un exemplu, mai jos:
+Pentru inputul:
+Settings 1 2 1
+Add NodA Alex
+Add NodB Marian Alex
+Add NodC Ionela Marian Alex
+Serialize Alex Alex_Fisier.txt
+Se va serializa:
+Serialize Alex
+<Object class="NodA" Version="1" id="0">					nod graf
+	<Nume>Alex</Nume>										
+	<LIST>
+		<Object class="NodB" Version="2" id="1">			nod vecin
+			<Nume>Marian</Nume>
+		</Object>
+		<Object class="NodC" Version="1" id="2">			nod vecin
+			<Nume>Ionela</Nume>
+		</Object>
+	</LIST>
+</Object>
+<Object class="NodB" Version="2" id="1">					nod graf
+	<Nume>Marian</Nume>
+	<VECTOR>
+		<Reference class="NodA" Version="1" id="0">			nod vecin
+		<Object class="NodC" Version="1" id="2">			nod vecin
+			<Nume>Ionela</Nume>
+		</Object>
+	</VECTOR>
+</Object>
+<Object class="NodC" Version="1" id="2">					nod graf
+	<Nume>Ionela</Nume>
+	<LIST>
+		<Reference class="NodB" Version="2" id="1">			nod vecin
+		<Reference class="NodA" Version="1" id="0">			nod vecin
+	</LIST>
+</Object>
+	Se va serializa fiecare fiecare nod al grafului conex cu nodul de la care se incepe serializarea. Se vor afisa vecinii conform a doua situatii diferite:
+	-nodul vecin nu a fost serializat si se va afisa cu 'Object' si apoi i se va afisa si numele;
+	-nodul vecin a fost serializat si se va afisa cu 'Reference'; 
+	Pentru deserializare am citit fiecare linie din fisierul serializat si am accesat camputile utile pentru constructia noului graf. Setarile noului graf sunt ultimile setari date inainte de comanda de deserealizare.
+	Am rulat tema pe Linux, in terminal, folosind comanda: make run ARGS=nume_fisier

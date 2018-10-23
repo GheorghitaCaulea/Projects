@@ -1,0 +1,8 @@
+Task01
+	Rezolvarea incepe prin construirea unei functii care calculeaza numarul de divizori al unui x dat. In main, am mers cu i pe intervalul [1, k], am calculat suma divizorilor lui i, iar pe aceste sume am verificat daca suma divizorilor lor este egala cu i. Conditiile fiind indeplinite, se afiseaza perechile.
+
+Task02 	
+	Rezolvarea incepe cu o functie care verifica proprietatea de palindrom a unui x dat. Am construit si o a doua functie care numara cifrele unui q dat. In main, parcurg intervalul [1, f - 1], iau un i care merge in intervalul [min, max], interval construit de numarul de cifre citit, dupa care verific daca un k se divide cu i, in caz pozitiv daca k / i are numarul de cifre corespunzator il contorizez.
+
+Task03
+	Rezolvarea incepe prin introducerea mutarilor. Creez masc1 ce are un singur bit pe pozita curenta. Pentru a verifica daca am bit pe acesta pozitie fac conjunctie intre tab si masc1. In caz pozitiv sterg bitul de pe pozitia curenta. Incep constructia lui masc2, cu bit pe pozitia in care urmeaza sa merg. Fac conjunctie intre tab si masc2 pentru a afla daca am sau nu bit. Daca am bit pe acea pozitie il sterg, in caz contrar adaug.

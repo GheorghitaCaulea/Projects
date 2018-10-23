@@ -1,0 +1,7 @@
+Student:  CAULEA Gheorghita
+Grupa: 	  324CB
+
+PROBLEMA 1
+	
+	In inceputul implementarii initializez o matrice de adiacenta pentru graful pe care urmeaza sa il construiesc cu literele alfabetului englez. Citesc din fisier perechi de cate doua cuvinte, de fiecare data cel de-al doilea cuvant devenind primul si citind unul nou. Apelez o metoda ce imi construieste matricea de adiacenta. Metoda ce contruieste matricea primeste ca parametru perechi de astefel de cuvinte. Aceasta metoda converteste cuvintele primite in vectori de caractere si itereaza in vectori pana cand caracterele de pe aceiasi pozitie difera. In acest caz va aduga o muchie in matricea de adiacenta. In cazul in care cuvintele sunt identice cu exceptia faptului ca primul este mai lung, metoda va intoarce '-1' ceea ce va reprezenta ca este imposibila contructia unui astfel de alfabet. Dupa ce construiesc matricea de adiacenta ce reprezinta graful apelez algoritmul de sortare topologica a lui 'Kahn'. In cazul in care se gasesc cicluri in graf dupa sortare returnez esec in caz contrar voi scrie in fisier alfabetul astfel format.
+	Complexitate: O(|V| +|E|), unde |V| reprezinta lungimea alfabetului si |E| numarul de muchii gasite
